@@ -14,8 +14,11 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private String[] drpdwn = {"C", "Javascript", "Rust", "Elixir", "PHP", "GO"};
 
     private Button showPopup;
+
+    private TextView longPress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +95,22 @@ public class MainActivity extends AppCompatActivity {
             }
         }); // fim do setOnclickListener
 
+        // Long Press
+        longPress = (TextView) findViewById(R.id.longPress);
+        longPress.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getApplicationContext(), "Você pressionou por muito tempo!", 2000).show();
+                return true;
+            }
+        });
+        longPress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Não foi longo o suficiente!", 1000).show();
+            }
+        });
+
     }
 
     // Toggle Buttons
@@ -119,6 +140,12 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
+    }
+
+    // MainActivity2
+    public void proximaTela(View view){
+        Intent prxTela = new Intent(this, MainActivity2.class);
+        startActivity(prxTela);
     }
 
 }
